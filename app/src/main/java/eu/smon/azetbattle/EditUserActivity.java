@@ -11,12 +11,14 @@ import eu.smon.azetbattle.R;
 
 public class EditUserActivity extends AppCompatActivity {
 
-    Button backBtn = (Button)findViewById(R.id.backBtn);
+    Button backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
+
+        backBtn = (Button)findViewById(R.id.backBtn);
     }
 
     public void onButtonClick(View id) {
