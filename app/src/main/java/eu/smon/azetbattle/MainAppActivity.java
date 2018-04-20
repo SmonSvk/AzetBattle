@@ -37,6 +37,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.Arrays;
 import java.util.List;
 
+import eu.smon.azetbattle.Classes.AboutAppActivity;
+import eu.smon.azetbattle.Classes.EditUserActivity;
 import eu.smon.azetbattle.Classes.Pouzivatel;
 
 public class MainAppActivity extends AppCompatActivity
@@ -70,8 +72,8 @@ public class MainAppActivity extends AppCompatActivity
 
     protected void Init(){
         //docText = (TextView) findViewById(R.id.DocName);
-        orderText = (TextView) findViewById(R.id.Order);
-        waitTime = (TextView) findViewById(R.id.WaitTime);
+        //orderText = (TextView) findViewById(R.id.Order);
+        //waitTime = (TextView) findViewById(R.id.WaitTime);
 
         /*signoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,13 +194,16 @@ public class MainAppActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_main) {
-            // Handle the camera action
-        } else if (id == R.id.nav_edit_user) {
-
-        } else if (id == R.id.nav_logout) {
-
-        } else if (id == R.id.nav_about) {
-
+            startActivity(new Intent(getApplicationContext(), MainAppActivity.class));
+        }
+        else if (id == R.id.nav_edit_user) {
+            startActivity(new Intent(getApplicationContext(), EditUserActivity.class));
+        }
+        else if (id == R.id.nav_logout) {
+            // odhlasit
+        }
+        else if (id == R.id.nav_about) {
+            startActivity(new Intent(getApplicationContext(), AboutAppActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
