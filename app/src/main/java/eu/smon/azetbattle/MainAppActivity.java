@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Arrays;
 import java.util.List;
@@ -98,6 +101,7 @@ public class MainAppActivity extends AppCompatActivity
                 RC_SIGN_IN);
 
         dbref = FirebaseDatabase.getInstance().getReference();
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,7 +118,7 @@ public class MainAppActivity extends AppCompatActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (!dataSnapshot.child("users").child(user.getUid()).exists()) {
-                            Pouzivatel poz = new Pouzivatel(user.getDisplayName(), user.getEmail());
+                            Pouzivatel poz = new Pouzivatel(user.getDisplayName(), user.getEmail(), FirebaseInstanceId.getInstance().getToken());
                             dbref.child("users").child(user.getUid()).setValue(poz);
                         }
                     }
@@ -127,6 +131,22 @@ public class MainAppActivity extends AppCompatActivity
                 Toast.makeText(MainAppActivity.this, "Nepodarilo sa prihlásiť", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void onTokenRefresh() {
+        // Get updated InstanceID token.
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("token", "Refreshed token: " + refreshedToken);
+
+        // If you want to send messages to this application instance or
+        // manage this apps subscriptions on the server side, send the
+        // Instance ID token to your app server.
+        sendRegistrationToServer(refreshedToken);
+    }
+
+    private void sendRegistrationToServer(String refreshedToken) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        dbref.child("users").child(user.getUid()).child("token").setValue(refreshedToken);
     }
 
     @Override
