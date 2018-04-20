@@ -105,40 +105,42 @@ public class MainAppActivity extends AppCompatActivity
 
         dbref = FirebaseDatabase.getInstance().getReference();
 
-        dbref.addValueEventListener(new ValueEventListener() {
+        if(user != null) {
+            dbref.addValueEventListener(new ValueEventListener() {
                 @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("users").child(user.getUid()).child("DoktorID").getValue() != null) {
-                    String docID = dataSnapshot.child("users").child(user.getUid()).child("DoktorID").getValue().toString();
-                    docText.setText(dataSnapshot.child("doktory").child(docID).child("name").getValue().toString());
-                    int poradie = Integer.parseInt(dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue().toString());
-                    int narade;
-                    if(dataSnapshot.child("rad").child(docID).child("aktualne").getValue() == null)
-                        narade = 0;
-                    else
-                        narade = Integer.parseInt(dataSnapshot.child("rad").child(docID).child("aktualne").getValue().toString());
-                    if(poradie - narade > 0)
-                        orderText.setText(String.valueOf(poradie - narade));
-                    else
-                        orderText.setText("Ste na rade");
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("users").child(user.getUid()).child("DoktorID").getValue() != null) {
+                        String docID = dataSnapshot.child("users").child(user.getUid()).child("DoktorID").getValue().toString();
+                        docText.setText(dataSnapshot.child("doktory").child(docID).child("name").getValue().toString());
+                        int poradie = Integer.parseInt(dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue().toString());
+                        int narade;
+                        if (dataSnapshot.child("rad").child(docID).child("aktualne").getValue() == null)
+                            narade = 0;
+                        else
+                            narade = Integer.parseInt(dataSnapshot.child("rad").child(docID).child("aktualne").getValue().toString());
+                        if (poradie - narade > 0)
+                            orderText.setText(String.valueOf(poradie - narade));
+                        else
+                            orderText.setText("Ste na rade");
 
-                    int wait = Integer.parseInt(dataSnapshot.child("doktory").child(docID).child("cakanie").getValue().toString());
+                        int wait = Integer.parseInt(dataSnapshot.child("doktory").child(docID).child("cakanie").getValue().toString());
 
-                    waitTime.setText(String.valueOf(((poradie - narade) * wait)));
-                    orderText.setVisibility(View.VISIBLE);
-                    waitTime.setVisibility(View.VISIBLE);
+                        waitTime.setText(String.valueOf(((poradie - narade) * wait)));
+                        orderText.setVisibility(View.VISIBLE);
+                        waitTime.setVisibility(View.VISIBLE);
+                    } else {
+                        docText.setText("Nie ste prihlásený do žiadnej rady");
+                        orderText.setVisibility(View.GONE);
+                        waitTime.setVisibility(View.GONE);
+                    }
                 }
-                else{
-                    docText.setText("Nie ste prihlásený do žiadnej rady");
-                    orderText.setVisibility(View.GONE);
-                    waitTime.setVisibility(View.GONE);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
 
     }
 
@@ -212,7 +214,8 @@ public class MainAppActivity extends AppCompatActivity
                          .addOnCompleteListener(new OnCompleteListener<Void>() {
                        public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(MainAppActivity.this, "Odlásený", Toast.LENGTH_SHORT).show();
-                                                             }
+                            finish();
+                       }
                  });
         }
         else if (id == R.id.nav_about) {

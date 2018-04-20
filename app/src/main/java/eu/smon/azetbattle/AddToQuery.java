@@ -53,6 +53,7 @@ public class AddToQuery extends AppCompatActivity {
 
                                 dbref.child("rad").child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue().toString()).child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString()).child("userid").setValue(user.getUid());
                                 dbref.child("rad").child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue().toString()).child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString()).child("Meno").setValue(user.getDisplayName());
+                                finish();
                             }
                         }
 
