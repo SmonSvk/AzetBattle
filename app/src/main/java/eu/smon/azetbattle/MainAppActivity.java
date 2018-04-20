@@ -71,15 +71,16 @@ public class MainAppActivity extends AppCompatActivity
 
     protected void Init(){
         addtoorder = (Button) findViewById(R.id.addToOrderBtn);
-        docText = (TextView) findViewById(R.id.docName);
-        orderText = (TextView) findViewById(R.id.order);
-        waitTime = (TextView) findViewById(R.id.waitingTime);
+        docText = (TextView) findViewById(R.id.docNameTxt);
+        orderText = (TextView) findViewById(R.id.orderTxt);
+        waitTime = (TextView) findViewById(R.id.waitingTimeTxt);
 
         addtoorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getBaseContext(), AddToQuery.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -108,16 +109,19 @@ public class MainAppActivity extends AppCompatActivity
         dbref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("users").child(user.getUid()).child("doktorID").getValue() != null) {
-                    int docID = (int) dataSnapshot.child("users").child(user.getUid()).child("doktorID").getValue();
-                    //docText.setText(dataSnapshot.child("doktory").child(String.valueOf(docID)).child("meno").getValue().toString());
-                    int poradie = (int) dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue();
-                    int narade = (int) dataSnapshot.child("rad").child(String.valueOf(docID)).child("aktualne").getValue();
-                    orderText.setText(String.valueOf(narade - poradie));
+                if(dataSnapshot.child("users").child(user.getUid()).child("DoktorID").getValue() != null) {
+                    String docID = dataSnapshot.child("users").child(user.getUid()).child("DoktorID").getValue().toString();
+                    docText.setText(dataSnapshot.child("doktory").child(docID).child("name").getValue().toString());
+                    int poradie = Integer.parseInt(dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue().toString());
+                    int narade = Integer.parseInt(dataSnapshot.child("rad").child(docID).child("aktualne").getValue().toString());
+                    if(poradie - narade > 0)
+                        orderText.setText(String.valueOf(poradie - narade));
+                    else
+                        orderText.setText("Ste na rade");
 
-                    int wait = (int)dataSnapshot.child("doktory").child(String.valueOf(docID)).child("cakanie").getValue();
+                    int wait = Integer.parseInt(dataSnapshot.child("doktory").child(docID).child("cakanie").getValue().toString());
 
-                    waitTime.setText(String.valueOf(((narade - poradie) * wait)));
+                    waitTime.setText(String.valueOf(((poradie - narade) * wait)));
                     orderText.setVisibility(View.VISIBLE);
                     waitTime.setVisibility(View.VISIBLE);
                 }

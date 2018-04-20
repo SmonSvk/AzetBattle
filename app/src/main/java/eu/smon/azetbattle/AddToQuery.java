@@ -1,5 +1,6 @@
 package eu.smon.azetbattle;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,10 +47,15 @@ public class AddToQuery extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue() != null) {
-                                ZapisanieDoRady rada = new ZapisanieDoRady(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue().toString(), dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString());
-                                dbref.child("users").child(user.getUid()).setValue(rada);
+                                dbref.child("users").child(user.getUid()).child("DoktorID").setValue(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue().toString());
+                                dbref.child("users").child(user.getUid()).child("poradie").setValue(dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString());
 
-                                dbref.child("rad").child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString()).child("userid").setValue(user.getUid());
+
+                                dbref.child("rad").child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue().toString()).child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString()).child("userid").setValue(user.getUid());
+
+                                Intent i = new Intent(getBaseContext(), MainAppActivity.class);
+                                startActivity(i);
+                                finish();
                             }
                         }
 
