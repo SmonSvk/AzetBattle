@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
@@ -59,43 +61,39 @@
             android:textSize="18sp"
             android:textStyle="normal"/>
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_marginTop="18dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/confirmBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginLeft="0dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_style_active"
-            android:text="Potvrdiť"
-            android:textSize="18sp"
-            android:textColor="@color/buttonTextColor" />
+            <Button
+                android:id="@+id/confirmBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_style_active"
+                android:text="Potvrdiť"
+                android:textColor="@color/buttonTextColor"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="0dp" />
 
-        <Button
-            android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginLeft="64dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_style_active"
-            android:text="Naspäť"
-            android:textSize="18sp"
-            android:textColor="@color/buttonTextColor" />
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_style_active"
+                android:text="Naspäť"
+                android:textColor="@color/buttonTextColor"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="0dp" />
 
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#303030"
-            android:layout_marginBottom="14dp"/>
+
 
     </LinearLayout>
 </RelativeLayout>
