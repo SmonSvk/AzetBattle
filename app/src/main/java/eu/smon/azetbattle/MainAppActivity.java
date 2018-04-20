@@ -69,11 +69,11 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     protected void Init(){
-        docText = (TextView) findViewById(R.id.DocName);
+        //docText = (TextView) findViewById(R.id.DocName);
         orderText = (TextView) findViewById(R.id.Order);
         waitTime = (TextView) findViewById(R.id.WaitTime);
 
-        signoutbutton.setOnClickListener(new View.OnClickListener() {
+        /*signoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AuthUI.getInstance()
@@ -84,7 +84,7 @@ public class MainAppActivity extends AppCompatActivity
                             }
                         });
             }
-        });
+        });*/
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -191,17 +191,13 @@ public class MainAppActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_main) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_edit_user) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_logout) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_about) {
 
         }
 

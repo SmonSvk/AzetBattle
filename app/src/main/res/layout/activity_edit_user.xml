@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:text="@string/tvDialogTitle"
+            android:text="Editácia údajov"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -29,35 +29,68 @@
             android:layout_marginTop="26dp"
             android:textColor="@color/titleColor"
             android:background="@drawable/edit_text_style"
-            android:hint="@string/tvName"
+            android:hint="Meno"
             android:inputType="textPersonName|textCapWords"
             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
             android:textSize="22sp"
             android:textStyle="normal"/>
 
         <EditText
-            android:id="@+id/etNumber"
+            android:id="@+id/phoneTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:textColor="@color/titleColor"
             android:background="@drawable/edit_text_style"
-            android:hint="@string/tvNumber"
+            android:hint="Telefon"
             android:inputType="number"
             android:digits="0123456789"
             android:textSize="22sp"
             android:textStyle="normal"/>
 
-        <Button
-            android:id="@+id/btnConfirm"
+        <EditText
+            android:id="@+id/emailTxt"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:textColor="@color/titleColor"
+            android:background="@drawable/edit_text_style"
+            android:hint="Email"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:textSize="22sp"
+            android:textStyle="normal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/confirmBtn"
+            android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:layout_marginTop="32dp"
+            android:layout_marginLeft="0dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/button_style_active"
-            android:text="@string/dialogButtonText"
+            android:text="Potvrdiť"
             android:textSize="20sp"
             android:textColor="@color/buttonTextColor" />
+
+        <Button
+            android:id="@+id/rejectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="0dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_style_active"
+            android:text="Naspäť"
+            android:textSize="20sp"
+            android:textColor="@color/buttonTextColor" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
