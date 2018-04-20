@@ -207,6 +207,13 @@ public class MainAppActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_logout) {
             // log out
+                AuthUI.getInstance()
+                         .signOut(MainAppActivity.this)
+                         .addOnCompleteListener(new OnCompleteListener<Void>() {
+                       public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(MainAppActivity.this, "Odlásený", Toast.LENGTH_SHORT).show();
+                                                             }
+                 });
         }
         else if (id == R.id.nav_about) {
             startActivity(new Intent(getApplicationContext(), AboutAppActivity.class));
