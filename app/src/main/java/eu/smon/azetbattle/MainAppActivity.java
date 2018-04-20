@@ -80,7 +80,6 @@ public class MainAppActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent i = new Intent(getBaseContext(), AddToQuery.class);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -106,14 +105,18 @@ public class MainAppActivity extends AppCompatActivity
 
         dbref = FirebaseDatabase.getInstance().getReference();
 
-        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
+        dbref.addValueEventListener(new ValueEventListener() {
+                @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child("users").child(user.getUid()).child("DoktorID").getValue() != null) {
                     String docID = dataSnapshot.child("users").child(user.getUid()).child("DoktorID").getValue().toString();
                     docText.setText(dataSnapshot.child("doktory").child(docID).child("name").getValue().toString());
                     int poradie = Integer.parseInt(dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue().toString());
-                    int narade = Integer.parseInt(dataSnapshot.child("rad").child(docID).child("aktualne").getValue().toString());
+                    int narade;
+                    if(dataSnapshot.child("rad").child(docID).child("aktualne").getValue() == null)
+                        narade = 0;
+                    else
+                        narade = Integer.parseInt(dataSnapshot.child("rad").child(docID).child("aktualne").getValue().toString());
                     if(poradie - narade > 0)
                         orderText.setText(String.valueOf(poradie - narade));
                     else

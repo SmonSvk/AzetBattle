@@ -52,10 +52,7 @@ public class AddToQuery extends AppCompatActivity {
 
 
                                 dbref.child("rad").child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue().toString()).child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString()).child("userid").setValue(user.getUid());
-
-                                Intent i = new Intent(getBaseContext(), MainAppActivity.class);
-                                startActivity(i);
-                                finish();
+                                dbref.child("rad").child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue().toString()).child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString()).child("Meno").setValue(user.getDisplayName());
                             }
                         }
 
