@@ -45,7 +45,7 @@ public class MainAppActivity extends AppCompatActivity
     private static final int RC_SIGN_IN = 123;
 
     private GoogleSignInOptions gso;
-    private Button signoutbutton;
+    private Button addtoorder;
     private DatabaseReference dbref;
     private TextView docText, orderText, waitTime;
     private FirebaseUser user;
@@ -70,23 +70,18 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     protected void Init(){
-        //signoutbutton = (Button)findViewById(R.id.SignOutButton);
+        addtoorder = (Button) findViewById(R.id.addToOrderBtn);
         docText = (TextView) findViewById(R.id.docName);
-        orderText = (TextView) findViewById(R.id.Order);
-        waitTime = (TextView) findViewById(R.id.WaitTime);
+        orderText = (TextView) findViewById(R.id.order);
+        waitTime = (TextView) findViewById(R.id.waitingTime);
 
-        /*signoutbutton.setOnClickListener(new View.OnClickListener() {
+        addtoorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthUI.getInstance()
-                        .signOut(MainAppActivity.this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(MainAppActivity.this, "Odlásený", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                Intent i = new Intent(getBaseContext(), AddToQuery.class);
+                startActivity(i);
             }
-        });*/
+        });
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -107,27 +102,24 @@ public class MainAppActivity extends AppCompatActivity
                 RC_SIGN_IN);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        
+
         dbref = FirebaseDatabase.getInstance().getReference();
 
         dbref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("users").child(user.getUid()).child("doktor").getValue() != null) {
-                    int docID = (int) dataSnapshot.child("users").child(user.getUid()).child("doktor").getValue();
-                    docText.setText(dataSnapshot.child("doktory").child(String.valueOf(docID)).child("meno").getValue().toString());
-                    if(dataSnapshot.child("users").child(user.getUid()).child("radid").getValue().toString() != null) {
-                        String radid = dataSnapshot.child("users").child(user.getUid()).child("radid").getValue().toString();
-                        int poradie = (int) dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue();
-                        int narade = (int) dataSnapshot.child("rad").child(docText.getText().toString()).child(radid).child("aktualne").getValue();
-                        orderText.setText(String.valueOf(narade - poradie));
+                if(dataSnapshot.child("users").child(user.getUid()).child("doktorID").getValue() != null) {
+                    int docID = (int) dataSnapshot.child("users").child(user.getUid()).child("doktorID").getValue();
+                    //docText.setText(dataSnapshot.child("doktory").child(String.valueOf(docID)).child("meno").getValue().toString());
+                    int poradie = (int) dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue();
+                    int narade = (int) dataSnapshot.child("rad").child(String.valueOf(docID)).child("aktualne").getValue();
+                    orderText.setText(String.valueOf(narade - poradie));
 
-                        int wait = (int)dataSnapshot.child("doktory").child(String.valueOf(docID)).child("cakanie").getValue();
+                    int wait = (int)dataSnapshot.child("doktory").child(String.valueOf(docID)).child("cakanie").getValue();
 
-                        waitTime.setText(String.valueOf(((narade - poradie) * wait)));
-                        orderText.setVisibility(View.VISIBLE);
-                        waitTime.setVisibility(View.VISIBLE);
-                    }
+                    waitTime.setText(String.valueOf(((narade - poradie) * wait)));
+                    orderText.setVisibility(View.VISIBLE);
+                    waitTime.setVisibility(View.VISIBLE);
                 }
                 else{
                     docText.setText("Nie ste prihlásený do žiadnej rady");
@@ -225,7 +217,7 @@ public class MainAppActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        /*if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -237,7 +229,7 @@ public class MainAppActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
