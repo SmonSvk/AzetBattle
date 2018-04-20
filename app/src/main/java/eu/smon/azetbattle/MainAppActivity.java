@@ -64,7 +64,7 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     protected void Init(){
-        /*signoutbutton = (Button)findViewById(R.id.SignOutButton);
+        signoutbutton = (Button)findViewById(R.id.SignOutButton);
 
         signoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,7 @@ public class MainAppActivity extends AppCompatActivity
                             }
                         });
             }
-        });*/
+        });
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
