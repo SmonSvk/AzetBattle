@@ -1,15 +1,31 @@
 package eu.smon.azetbattle.Classes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
+import eu.smon.azetbattle.MainAppActivity;
 import eu.smon.azetbattle.R;
 
 public class EditUserActivity extends AppCompatActivity {
+
+    Button backBtn = (Button)findViewById(R.id.backBtn);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
+    }
+
+    public void onButtonClick(View id) {
+
+        if (id.getId() == R.id.backBtn) {
+            startActivity(new Intent(getApplicationContext(), MainAppActivity.class));
+        }
+        else if (id.getId() == R.id.confirmBtn) {
+            // TO DO
+        }
     }
 }

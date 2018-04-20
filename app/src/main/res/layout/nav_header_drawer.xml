@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@drawable/hospital" />

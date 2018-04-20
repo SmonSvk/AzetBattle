@@ -56,8 +56,6 @@
             android:textColor="@color/titleColor"
             android:background="@drawable/edit_text_style"
             android:hint="Email"
-            android:inputType="number"
-            android:digits="0123456789"
             android:textSize="18sp"
             android:textStyle="normal"/>
 
@@ -70,7 +68,7 @@
         <Button
             android:id="@+id/confirmBtn"
             android:layout_width="wrap_content"
-            android:layout_height="58dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginLeft="0dp"
             android:layout_gravity="center_horizontal"
@@ -80,12 +78,11 @@
             android:textColor="@color/buttonTextColor" />
 
         <Button
-            android:id="@+id/rejectBtn"
+            android:id="@+id/backBtn"
             android:layout_width="wrap_content"
-            android:layout_height="58dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="64dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/button_style_active"
             android:text="Naspäť"
