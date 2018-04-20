@@ -37,8 +37,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.Arrays;
 import java.util.List;
 
-import eu.smon.azetbattle.Classes.AboutAppActivity;
-import eu.smon.azetbattle.Classes.EditUserActivity;
 import eu.smon.azetbattle.Classes.Pouzivatel;
 
 public class MainAppActivity extends AppCompatActivity
@@ -50,6 +48,7 @@ public class MainAppActivity extends AppCompatActivity
     private Button signoutbutton;
     private DatabaseReference dbref;
     private TextView docText, orderText, waitTime;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +70,10 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     protected void Init(){
-        //docText = (TextView) findViewById(R.id.DocName);
-        //orderText = (TextView) findViewById(R.id.Order);
-        //waitTime = (TextView) findViewById(R.id.WaitTime);
+        //signoutbutton = (Button)findViewById(R.id.SignOutButton);
+        docText = (TextView) findViewById(R.id.docName);
+        orderText = (TextView) findViewById(R.id.Order);
+        waitTime = (TextView) findViewById(R.id.WaitTime);
 
         /*signoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +108,37 @@ public class MainAppActivity extends AppCompatActivity
 
         dbref = FirebaseDatabase.getInstance().getReference();
 
+        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child("users").child(user.getUid()).child("doktor").getValue() != null) {
+                    int docID = (int) dataSnapshot.child("users").child(user.getUid()).child("doktor").getValue();
+                    docText.setText(dataSnapshot.child("doktory").child(String.valueOf(docID)).child("meno").getValue().toString());
+                    if(dataSnapshot.child("users").child(user.getUid()).child("radid").getValue().toString() != null) {
+                        String radid = dataSnapshot.child("users").child(user.getUid()).child("radid").getValue().toString();
+                        int poradie = (int) dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue();
+                        int narade = (int) dataSnapshot.child("rad").child(docText.getText().toString()).child(radid).child("aktualne").getValue();
+                        orderText.setText(String.valueOf(narade - poradie));
+
+                        int wait = (int)dataSnapshot.child("doktory").child(String.valueOf(docID)).child("cakanie").getValue();
+
+                        waitTime.setText(String.valueOf(((narade - poradie) * wait)));
+                        orderText.setVisibility(View.VISIBLE);
+                        waitTime.setVisibility(View.VISIBLE);
+                    }
+                }
+                else{
+                    docText.setText("Nie ste prihlásený do žiadnej rady");
+                    orderText.setVisibility(View.GONE);
+                    waitTime.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -118,7 +149,7 @@ public class MainAppActivity extends AppCompatActivity
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user = FirebaseAuth.getInstance().getCurrentUser();
 
                 dbref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -151,7 +182,7 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     private void sendRegistrationToServer(String refreshedToken) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         dbref.child("users").child(user.getUid()).child("token").setValue(refreshedToken);
     }
 
@@ -193,17 +224,18 @@ public class MainAppActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_main) {
-            startActivity(new Intent(getApplicationContext(), MainAppActivity.class));
-        }
-        else if (id == R.id.nav_edit_user) {
-            startActivity(new Intent(getApplicationContext(), EditUserActivity.class));
-        }
-        else if (id == R.id.nav_logout) {
-            // odhlasit
-        }
-        else if (id == R.id.nav_about) {
-            startActivity(new Intent(getApplicationContext(), AboutAppActivity.class));
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
