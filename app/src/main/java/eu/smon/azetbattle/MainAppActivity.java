@@ -51,15 +51,6 @@ public class MainAppActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -73,7 +64,7 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     protected void Init(){
-        signoutbutton = (Button)findViewById(R.id.SignOutButton);
+        /*signoutbutton = (Button)findViewById(R.id.SignOutButton);
 
         signoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +77,7 @@ public class MainAppActivity extends AppCompatActivity
                             }
                         });
             }
-        });
+        });*/
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
