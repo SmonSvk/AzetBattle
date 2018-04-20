@@ -1,4 +1,4 @@
-package eu.smon.azetbattle.Classes;
+package eu.smon.azetbattle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
