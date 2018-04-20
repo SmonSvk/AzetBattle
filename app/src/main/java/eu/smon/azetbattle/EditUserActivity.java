@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import eu.smon.azetbattle.MainAppActivity;
-import eu.smon.azetbattle.R;
-
 public class EditUserActivity extends AppCompatActivity {
 
     Button backBtn;
