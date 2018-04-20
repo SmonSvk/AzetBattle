@@ -24,46 +24,73 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/DocName"
+            android:id="@+id/docName3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="aaaaaaa"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/WaitTime"
+            app:layout_constraintTop_toBottomOf="@+id/docName6" />
+
+        <TextView
+            android:id="@+id/docName6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Order"
+            app:layout_constraintTop_toBottomOf="@+id/docName2" />
+
+        <TextView
+            android:id="@+id/docName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/docName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/docName"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Meno doktora:"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/Order"
-            android:layout_width="wrap_content"
+            android:layout_width="146dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="Poradie v rade:"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DocName" />
+            app:layout_constraintTop_toBottomOf="@+id/docName" />
 
         <TextView
             android:id="@+id/WaitTime"
-            android:layout_width="wrap_content"
+            android:layout_width="146dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="Odhadovaný čas:"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Order" />
+            app:layout_constraintTop_toBottomOf="@+id/Order"
+            app:layout_constraintVertical_bias="1.0" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

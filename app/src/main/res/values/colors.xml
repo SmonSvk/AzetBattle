@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="buttonTextColor">#f9f9f9</color>
+    <color name="whiteColor">#ffffff</color>
+    <color name="titleColor">#202020</color>
+    <color name="backgroundColor">#F7F7F7</color>
+    <color name="edtTextColor">#232323</color>
+    <color name="basicTextColor">#737373</color>
+    <color name="focusedItemColor">#87CEEB</color>
 </resources>
