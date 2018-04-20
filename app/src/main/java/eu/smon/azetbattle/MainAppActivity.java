@@ -101,6 +101,8 @@ public class MainAppActivity extends AppCompatActivity
                         .build(),
                 RC_SIGN_IN);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        
         dbref = FirebaseDatabase.getInstance().getReference();
 
         dbref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -144,7 +146,6 @@ public class MainAppActivity extends AppCompatActivity
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
-                user = FirebaseAuth.getInstance().getCurrentUser();
 
                 dbref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
