@@ -102,27 +102,24 @@ public class MainAppActivity extends AppCompatActivity
                 RC_SIGN_IN);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        
+
         dbref = FirebaseDatabase.getInstance().getReference();
 
         dbref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("users").child(user.getUid()).child("doktor").getValue() != null) {
-                    int docID = (int) dataSnapshot.child("users").child(user.getUid()).child("doktor").getValue();
-                    docText.setText(dataSnapshot.child("doktory").child(String.valueOf(docID)).child("meno").getValue().toString());
-                    if(dataSnapshot.child("users").child(user.getUid()).child("radid").getValue().toString() != null) {
-                        String radid = dataSnapshot.child("users").child(user.getUid()).child("radid").getValue().toString();
-                        int poradie = (int) dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue();
-                        int narade = (int) dataSnapshot.child("rad").child(docText.getText().toString()).child(radid).child("aktualne").getValue();
-                        orderText.setText(String.valueOf(narade - poradie));
+                if(dataSnapshot.child("users").child(user.getUid()).child("doktorID").getValue() != null) {
+                    int docID = (int) dataSnapshot.child("users").child(user.getUid()).child("doktorID").getValue();
+                    //docText.setText(dataSnapshot.child("doktory").child(String.valueOf(docID)).child("meno").getValue().toString());
+                    int poradie = (int) dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue();
+                    int narade = (int) dataSnapshot.child("rad").child(String.valueOf(docID)).child("aktualne").getValue();
+                    orderText.setText(String.valueOf(narade - poradie));
 
-                        int wait = (int)dataSnapshot.child("doktory").child(String.valueOf(docID)).child("cakanie").getValue();
+                    int wait = (int)dataSnapshot.child("doktory").child(String.valueOf(docID)).child("cakanie").getValue();
 
-                        waitTime.setText(String.valueOf(((narade - poradie) * wait)));
-                        orderText.setVisibility(View.VISIBLE);
-                        waitTime.setVisibility(View.VISIBLE);
-                    }
+                    waitTime.setText(String.valueOf(((narade - poradie) * wait)));
+                    orderText.setVisibility(View.VISIBLE);
+                    waitTime.setVisibility(View.VISIBLE);
                 }
                 else{
                     docText.setText("Nie ste prihlásený do žiadnej rady");
