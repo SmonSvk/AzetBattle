@@ -17,16 +17,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 import java.util.List;
+
+import eu.smon.azetbattle.Classes.Pouzivatel;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
 
-    GoogleSignInOptions gso;
-    Button signoutbutton;
+    private GoogleSignInOptions gso;
+    private Button signoutbutton;
+    private DatabaseReference dbref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAvailableProviders(providers)
                         .build(),
                 RC_SIGN_IN);
+
+        dbref = FirebaseDatabase.getInstance().getReference();
     }
 
     protected void ButtonListeners(){
@@ -84,11 +91,10 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                // ...
+                Pouzivatel poz = new Pouzivatel(user.getDisplayName(), user.getEmail());
+                dbref.child("users").child(user.getUid()).setValue(poz);
             } else {
-                // Sign in failed, check response for error code
-                // ...
+                Toast.makeText(MainActivity.this, "Nepodarilo sa prihlásiť", Toast.LENGTH_SHORT).show();
             }
         }
     }
