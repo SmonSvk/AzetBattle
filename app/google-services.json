@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "309816260512",
+    "firebase_url": "https://azetbattle-2ce39.firebaseio.com",
+    "project_id": "azetbattle-2ce39",
+    "storage_bucket": "azetbattle-2ce39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309816260512:android:a78a7f1f73adc799",
+        "android_client_info": {
+          "package_name": "eu.smon.azetbattle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309816260512-3d9pctn5qhuq4p12rneqf8cpjsu74716.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.smon.azetbattle",
+            "certificate_hash": "ab942f49befbd82567b7ef1a8f88348900400931"
+          }
+        },
+        {
+          "client_id": "309816260512-5lok7ij46r6bbto1mnia9276g8f4ln5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.smon.azetbattle",
+            "certificate_hash": "04d2626a686f544427691993b20ace1ffced2867"
+          }
+        },
+        {
+          "client_id": "309816260512-b1i75ne22nm279n2kdongcla1vh2j11b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAViieV5LlFeBsQdIv8yoxI0GwohLHE1Hc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309816260512-b1i75ne22nm279n2kdongcla1vh2j11b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
