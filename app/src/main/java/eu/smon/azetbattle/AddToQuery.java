@@ -41,15 +41,18 @@ public class AddToQuery extends AppCompatActivity {
         signButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ID.length() > 0){
+                if(ID.length() > 0) {
                     dbref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue() != null) {
+                            if (dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue() != null) {
                                 ZapisanieDoRady rada = new ZapisanieDoRady(dataSnapshot.child("casenky").child(ID.getText().toString()).child("docID").getValue().toString(), dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString());
                                 dbref.child("users").child(user.getUid()).setValue(rada);
+
+                                dbref.child("rad").child(dataSnapshot.child("casenky").child(ID.getText().toString()).child("poradie").getValue().toString()).child("userid").setValue(user.getUid());
                             }
                         }
+
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
