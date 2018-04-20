@@ -48,6 +48,7 @@ public class MainAppActivity extends AppCompatActivity
     private Button signoutbutton;
     private DatabaseReference dbref;
     private TextView docText, orderText, waitTime;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +70,12 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     protected void Init(){
-        signoutbutton = (Button)findViewById(R.id.SignOutButton);
+        //signoutbutton = (Button)findViewById(R.id.SignOutButton);
         docText = (TextView) findViewById(R.id.DocName);
         orderText = (TextView) findViewById(R.id.Order);
         waitTime = (TextView) findViewById(R.id.WaitTime);
 
-        signoutbutton.setOnClickListener(new View.OnClickListener() {
+        /*signoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AuthUI.getInstance()
@@ -85,7 +86,7 @@ public class MainAppActivity extends AppCompatActivity
                             }
                         });
             }
-        });
+        });*/
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -107,6 +108,37 @@ public class MainAppActivity extends AppCompatActivity
 
         dbref = FirebaseDatabase.getInstance().getReference();
 
+        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child("users").child(user.getUid()).child("doktor").getValue() != null) {
+                    int docID = (int) dataSnapshot.child("users").child(user.getUid()).child("doktor").getValue();
+                    docText.setText(dataSnapshot.child("doktory").child(String.valueOf(docID)).child("meno").getValue().toString());
+                    if(dataSnapshot.child("users").child(user.getUid()).child("radid").getValue().toString() != null) {
+                        String radid = dataSnapshot.child("users").child(user.getUid()).child("radid").getValue().toString();
+                        int poradie = (int) dataSnapshot.child("users").child(user.getUid()).child("poradie").getValue();
+                        int narade = (int) dataSnapshot.child("rad").child(docText.getText().toString()).child(radid).child("aktualne").getValue();
+                        orderText.setText(String.valueOf(narade - poradie));
+
+                        int wait = (int)dataSnapshot.child("doktory").child(String.valueOf(docID)).child("cakanie").getValue();
+
+                        waitTime.setText(String.valueOf(((narade - poradie) * wait)));
+                        orderText.setVisibility(View.VISIBLE);
+                        waitTime.setVisibility(View.VISIBLE);
+                    }
+                }
+                else{
+                    docText.setText("Nie ste prihlásený do žiadnej rady");
+                    orderText.setVisibility(View.GONE);
+                    waitTime.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -117,7 +149,7 @@ public class MainAppActivity extends AppCompatActivity
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user = FirebaseAuth.getInstance().getCurrentUser();
 
                 dbref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -150,7 +182,7 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     private void sendRegistrationToServer(String refreshedToken) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         dbref.child("users").child(user.getUid()).child("token").setValue(refreshedToken);
     }
 
