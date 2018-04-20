@@ -71,7 +71,7 @@ public class MainAppActivity extends AppCompatActivity
 
     protected void Init(){
         //signoutbutton = (Button)findViewById(R.id.SignOutButton);
-        docText = (TextView) findViewById(R.id.DocName);
+        docText = (TextView) findViewById(R.id.docName);
         orderText = (TextView) findViewById(R.id.Order);
         waitTime = (TextView) findViewById(R.id.WaitTime);
 
