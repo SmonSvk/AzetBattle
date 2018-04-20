@@ -45,7 +45,7 @@ public class MainAppActivity extends AppCompatActivity
     private static final int RC_SIGN_IN = 123;
 
     private GoogleSignInOptions gso;
-    private Button signoutbutton;
+    private Button addtoorder;
     private DatabaseReference dbref;
     private TextView docText, orderText, waitTime;
     private FirebaseUser user;
@@ -70,23 +70,18 @@ public class MainAppActivity extends AppCompatActivity
     }
 
     protected void Init(){
-        //signoutbutton = (Button)findViewById(R.id.SignOutButton);
+        addtoorder = (Button) findViewById(R.id.addToOrderBtn);
         docText = (TextView) findViewById(R.id.docName);
-        orderText = (TextView) findViewById(R.id.Order);
-        waitTime = (TextView) findViewById(R.id.WaitTime);
+        orderText = (TextView) findViewById(R.id.order);
+        waitTime = (TextView) findViewById(R.id.waitingTime);
 
-        /*signoutbutton.setOnClickListener(new View.OnClickListener() {
+        addtoorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthUI.getInstance()
-                        .signOut(MainAppActivity.this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(MainAppActivity.this, "Odlásený", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                Intent i = new Intent(getBaseContext(), AddToQuery.class);
+                startActivity(i);
             }
-        });*/
+        });
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -222,7 +217,7 @@ public class MainAppActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        /*if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -234,7 +229,7 @@ public class MainAppActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
