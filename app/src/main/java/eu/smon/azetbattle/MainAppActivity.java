@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -46,6 +47,7 @@ public class MainAppActivity extends AppCompatActivity
     private GoogleSignInOptions gso;
     private Button signoutbutton;
     private DatabaseReference dbref;
+    private TextView docText, orderText, waitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,9 @@ public class MainAppActivity extends AppCompatActivity
 
     protected void Init(){
         signoutbutton = (Button)findViewById(R.id.SignOutButton);
+        docText = (TextView) findViewById(R.id.DocName);
+        orderText = (TextView) findViewById(R.id.Order);
+        waitTime = (TextView) findViewById(R.id.WaitTime);
 
         signoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
